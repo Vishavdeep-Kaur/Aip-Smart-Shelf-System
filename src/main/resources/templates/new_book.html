@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add New Book</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="bg-light">
+    <div class="container my-5" style="max-width: 600px;">
+        <div class="card shadow border-0">
+            <div class="card-header bg-success text-white py-3 fw-bold">Add a book</div>
+            <div class="card-body p-4">
+                <form th:action="@{/saveBook}" th:object="${book}" method="POST">
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Book Title</label>
+                        <input type="text" th:field="*{title}" placeholder="Enter book title" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Author Name</label>
+                        <input type="text" th:field="*{author}" placeholder="Enter author name" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">ISBN</label>
+                        <input type="text" th:field="*{isbn}" placeholder="Enter unique ISBN" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Total copies</label>
+                        <input type="number" th:field="*{totalCopies}" class="form-control" min="1" required>
+                    </div>
+                    <hr class="my-4">
+                    <div class="d-flex justify-content-end gap-2">
+                        <a th:href="@{/}" class="btn btn-light border px-4">Cancel</a>
+                        <button type="submit" class="btn btn-success px-4">Save book</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

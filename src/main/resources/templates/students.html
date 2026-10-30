@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Students</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="bg-light">
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand navbar-dark bg-dark mb-4 shadow-sm">
+        <div class="container">
+            <span class="navbar-brand fw-bold">📚 Library System</span>
+            <div class="navbar-nav gap-2">
+                <a class="nav-link" th:href="@{/}">Books</a>
+                <a class="nav-link active" th:href="@{/students}">Students</a>
+                <a class="nav-link" th:href="@{/loans}">Loans</a>
+                <a class="nav-link text-warning fw-bold" th:href="@{/reports/overdue}">Overdue</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row g-4">
+            <!-- Left Panel: Add Student Form -->
+            <div class="col-md-4">
+                <div class="card shadow-sm border-0">
+                    <div class="card-header bg-primary text-white py-3 fw-bold">Register a student</div>
+                    <div class="card-body p-3">
+                        <form th:action="@{/saveStudent}" th:object="${student}" method="POST">
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold">Full name</label>
+                                <input type="text" th:field="*{name}" class="form-control" required placeholder="John Doe">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold">Student ID</label>
+                                <input type="text" th:field="*{studentIdNumber}" class="form-control" required placeholder="STU-001">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold">Email Address</label>
+                                <input type="email" th:field="*{email}" class="form-control" required placeholder="john.doe@university.com">
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100 mt-2">Add Student</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right Panel: Student List Table -->
+            <div class="col-md-8">
+                <div class="card shadow-sm border-0 p-3">
+                    <h5 class="fw-bold mb-3">Student directory</h5>
+                    <table class="table table-hover table-striped border align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Student Name</th>
+                                <th>Library ID</th>
+                                <th>Email</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="stu : ${listStudents}">
+                                <td class="fw-bold text-dark" th:text="${stu.name}"></td>
+                                <td><span class="badge bg-secondary px-2 py-1" th:text="${stu.studentIdNumber}"></span></td>
+                                <td th:text="${stu.email}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
